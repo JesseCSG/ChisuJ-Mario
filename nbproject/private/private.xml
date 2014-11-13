@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/ChiSuJ%20Mario/public_html/Mario%20Files/js/resources.js</file>
-            <file>file:/C:/xampp/htdocs/ChiSuJ%20Mario/public_html/Mario%20Files/js/game.js</file>
-            <file>file:/C:/xampp/htdocs/ChiSuJ%20Mario/public_html/Mario%20Files/js/screens/play.js</file>
-            <file>file:/C:/xampp/htdocs/ChiSuJ%20Mario/public_html/Mario%20Files/index.html</file>
+            <file>file:/C:/xampp/htdocs/ChiSuJ%20Mario/public_html/js/entities/entities.js</file>
+            <file>file:/C:/xampp/htdocs/ChiSuJ%20Mario/public_html/index.html</file>
+            <file>file:/C:/xampp/htdocs/ChiSuJ%20Mario/public_html/js/resources.js</file>
+            <file>file:/C:/xampp/htdocs/ChiSuJ%20Mario/public_html/js/screens/play.js</file>
+            <file>file:/C:/xampp/htdocs/ChiSuJ%20Mario/public_html/js/game.js</file>
         </group>
     </open-files>
 </project-private>
