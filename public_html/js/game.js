@@ -38,7 +38,7 @@ var game = {
 },
 
 	// Run on game resources loaded.
-	"loaded" : function () {
+	"loaded": function () {
                 me.pool.register("mario", game.PlayerEntity, true);
                 
             
