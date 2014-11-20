@@ -8,7 +8,7 @@ game.PlayerEntity = me.Entity.extend({
             width: 128,
             height: 128,
             getShape: function() {
-                return (new me.Rect(0, 0, 64, 128)).toPolygon();
+                return (new me.Rect(0, 0, 30, 128)).toPolygon();
             }
         }]);
     
@@ -58,11 +58,13 @@ game.LevelTrigger = me.Entity.extend({
         this._super(me.Entity, "init", [x, y, settings]);
         this.body.onCollision = this.onCollision.bind(this);
         this.level = settings.level;
+        this.xSpawn = settings.xSpawn;
+        this.ySpawn = settings.ySpawn;
         
     },
     onCollision: function() {
         this.body.setCollisionMask(me.collision.types.NO_OBJECT);
         me.levelDirector.loadLevel(this.level);
-        me.state.current().resetPlayer();
+        me.state.current().resetPlayer(this.xSpawn, this.ySpawn);
     }
 });
