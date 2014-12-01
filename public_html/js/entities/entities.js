@@ -22,11 +22,40 @@ game.PlayerEntity = me.Entity.extend({
     },
     
     update: function(delta) {
-        if (me.input.isKeyPressed("right")) {
+        if (me.input.isKeyPressed("left")) {
+            // flip the sprite on horizontal axis
+            this.flipX(true);
+            // update the entity velocity
+            this.body.vel.x -= this.body.accel.x * me.timer.tick;
+            // change to the walking animation
+            if (!this.renderable.isCurrentAnimation("smallWalk")) {
+                this.renderable.setCurrentAnimation("smallWalk");
+            }
+        } else if (me.input.isKeyPressed("right")) {
+            // unflip the sprite
+            this.flipX(false);
+            // update the entity velocity
             this.body.vel.x += this.body.accel.x * me.timer.tick;
-            //this.renderable.setCurrentAnimation("smallWalk");
+            // change to the walking animation
+            if (!this.renderable.isCurrentAnimation("smallWalk")) {
+                this.renderable.setCurrentAnimation("smallWalk");
+            }
         } else {
             this.body.vel.x = 0;
+            // change to the standing animation
+            this.renderable.setCurrentAnimation("idle");
+        }
+     
+        if (me.input.isKeyPressed("jump")) {
+            // make sure we are not already jumping or falling
+            if (!this.body.jumping && !this.body.falling) {
+                // set current vel to the maximum defined value
+                // gravity will then do the rest
+                this.body.vel.y = -this.body.maxVel.y * me.timer.tick;
+                // set the jumping flag
+                this.body.jumping = true;
+            }
+ 
         }
                 
         this.body.update(delta);
@@ -66,5 +95,24 @@ game.LevelTrigger = me.Entity.extend({
         this.body.setCollisionMask(me.collision.types.NO_OBJECT);
         me.levelDirector.loadLevel(this.level);
         me.state.current().resetPlayer(this.xSpawn, this.ySpawn);
+    }
+});
+
+game.BadGuy = me.Entity.extend({
+    init: function(x, y, settings) {
+       this._super(me.Entity, "init", [x, y, {
+            image: "slime",
+            spritewidth: "60",
+            spriteheight: "28",
+            width: 60,
+            height: 28,
+            getShape: function() {
+                return (new me.Rect(0, 0, 60, 28)).toPolygon();
+            }
+        }]); 
+    },
+    
+    update: function() {
+        
     }
 });
