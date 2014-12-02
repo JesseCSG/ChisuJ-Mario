@@ -109,10 +109,50 @@ game.BadGuy = me.Entity.extend({
             getShape: function() {
                 return (new me.Rect(0, 0, 60, 28)).toPolygon();
             }
-        }]); 
+        }]);
+    
+    this.spritwidth = 60;
+    var width = settings.width;
+    x = this.pos.x;
+    this.startX = x;
+    this.endX = x + width - this.spritewidth;
+    this.pos.X = x + width - this.spritewidth;
+    this.updateBounds();
+    
+    this.alwaysUpdate = true;
+    
+    this.walkLeft = false;
+    this.alive = true;
+    this.type = "badguy";
+    
+    this.renderable.addAnimation("run", [0, 1, 2], 80);
+    this.renderable.setCurrentAnimation("run");
+    
+    this.body.setVelocity(4, 6);
     },
     
-    update: function() {
+    update: function(delta) {
+        this.body.update(delta);
+        me.collision.check(this, true, this.collideHandeler.bind(this), true);
+        
+        if(this.alive) {
+            if(this.walkLeft && this.pos.x <= this.startX) {
+                this.walkLeft = false;
+            }else if(!this.walkLeft && this.pos.x >= this.endX){
+                this.walkLeft = true;
+            }
+            this.flipX(!this.walkLeft);
+            this.body.vel.x += (this.walkLeft) ? -this.body.accel.x * me.timer.tick : this.body.accel.x * me.timer.tick;
+        }else{
+            me.game.world.removeChild(this);
+        }
+        
+        
+        this._super(me.Entity, "update", [delta]);
+        this.return;
+    },
+    
+    collideHandeler: function() {
         
     }
 });
