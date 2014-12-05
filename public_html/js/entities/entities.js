@@ -3,19 +3,19 @@ game.PlayerEntity = me.Entity.extend({
     init: function(x, y, settings) {
         this._super(me.Entity, "init", [x, y, {
                 image: "mario",
-                spritewidth: "128",
-                spriteheight: "128",
-                width: 128,
-                height: 128,
+                spritewidth: "64",
+                spriteheight: "64",
+                width: 64,
+                height: 64,
                 getShape: function() {
-                    return (new me.Rect(0, 0, 30, 128)).toPolygon();
+                    return (new me.Rect(0, 0, 64, 64)).toPolygon();
                 }
             }]);
 
-        this.renderable.addAnimation("idle", [3]);
-        this.renderable.addAnimation("bigIdle", [19]);
-        this.renderable.addAnimation("smallWalk", [8, 9, 10, 11, 12, 13], 80);
-        this.renderable.addAnimation("bigWalk", [14, 15, 16, 17, 18, 19], 80)
+        this.renderable.addAnimation("idle", [39]);
+        this.renderable.addAnimation("bigIdle", [51]);
+        this.renderable.addAnimation("smallWalk", [143, 144, 145, 146, 147, 148, 149, 150, 151], 80);
+        this.renderable.addAnimation("bigWalk", [51, 52, 53, 54, 54, 55, 56, 57], 80);
 
         
         this.renderable.setCurrentAnimation("idle");
@@ -80,7 +80,7 @@ game.PlayerEntity = me.Entity.extend({
                     this.renderable.setAnimationFrame();
                 }
             } else {
-                this.renderable.setCurrentAnimation("bidIdle");
+                this.renderable.setCurrentAnimation("bigIdle");
             }
         }
 
@@ -90,7 +90,6 @@ game.PlayerEntity = me.Entity.extend({
     },
     collideHandler: function(response) {
         var ydif = this.pos.y - response.b.pos.y;
-        console.log(ydif);
 
         if (response.b.type === "badguy") {
             if (ydif <= -115) {
@@ -98,12 +97,11 @@ game.PlayerEntity = me.Entity.extend({
             } else {
                 me.state.change(me.state.MENU);
             }
-        }else if(respone.b.type === "mushroom") {
-            this.big = true;
-            console.log("Big!");
+        }else if(response.b.type === "mushroom") {
+            this.big = true;            
+            me.game.world.removeChild(response.b);
         }
     }
-
 });
 
 game.LevelTrigger = me.Entity.extend({
@@ -185,12 +183,12 @@ game.Mushroom = me.Entity.extend({
     init: function(x, y, settings) {
         this._super(me.Entity, "init", [x, y, {
                 image: "Mushroom",
-                spritewidth: "60",
-                spriteheight: "28",
-                width: 60,
-                height: 28,
+                spritewidth: "64",
+                spriteheight: "64",
+                width: 64,
+                height: 64,
                 getShape: function() {
-                    return (new me.Rect(0, 0, 60, 28)).toPolygon();
+                    return (new me.Rect(0, 0, 64, 64)).toPolygon();
                 }
             }]);
         

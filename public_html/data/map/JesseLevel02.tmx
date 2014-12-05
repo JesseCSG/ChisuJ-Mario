@@ -47,14 +47,17 @@
   <object name="BadGuy" x="701.048" y="486.696" width="279.007" height="73.1201" rotation="0.0997435"/>
   <object name="BadGuy" x="470" y="486" width="299" height="71"/>
  </objectgroup>
- <objectgroup name="trigger-entities"/>
  <objectgroup name="trigger-entities">
-  <properties>
-   <property name="level" value="JesseLevel03"/>
-   <property name="xSpawn" value="400"/>
-   <property name="ySpawn" value="0"/>
-  </properties>
-  <object x="1049" y="1" width="71" height="138"/>
+  <object name="levelTrigger" x="981" y="421" width="68" height="139">
+   <properties>
+    <property name="level" value="JesseLevel03"/>
+    <property name="xSpawn" value="0"/>
+    <property name="ySpawn" value="400"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="CollectibleEntities">
+  <object name="Mushroom" x="205" y="486" width="72" height="75"/>
  </objectgroup>
  <layer name="foreground" width="16" height="9">
   <properties>
