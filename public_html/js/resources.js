@@ -23,7 +23,8 @@ game.resources = [
  	 */
         {name: "JesseLevel01", type: "tmx", src: "data/map/JesseLevel01.tmx"},
         {name: "JesseLevel02", type: "tmx", src: "data/map/JesseLevel02.tmx"},
-        {name: "JesseLevel03", type: "tmx", src: "data/map/JesseLevel03.tmx"}
+        {name: "JesseLevel03", type: "tmx", src: "data/map/JesseLevel03.tmx"},
+        {name: "JesseLevel11", type: "tmx", src: "data/map/JesseLevel11.tmx"}
 
 	/* Background music. 
 	 * @example

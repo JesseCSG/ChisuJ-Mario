@@ -12,10 +12,10 @@ game.PlayerEntity = me.Entity.extend({
                 }
             }]);
 
-        this.renderable.addAnimation("idle", [39]);
-        this.renderable.addAnimation("bigIdle", [51]);
+        this.renderable.addAnimation("idle", [143]);
+        this.renderable.addAnimation("bigIdle", [41]);
         this.renderable.addAnimation("smallWalk", [143, 144, 145, 146, 147, 148, 149, 150, 151], 80);
-        this.renderable.addAnimation("bigWalk", [51, 52, 53, 54, 54, 55, 56, 57], 80);
+        this.renderable.addAnimation("bigWalk", [41, 42, 43, 44, 45, 46, 47], 80);
 
         
         this.renderable.setCurrentAnimation("idle");
@@ -90,16 +90,18 @@ game.PlayerEntity = me.Entity.extend({
     },
     collideHandler: function(response) {
         var ydif = this.pos.y - response.b.pos.y;
-
+        console.log = (ydif);
         if (response.b.type === "badguy") {
             if (ydif <= -115) {
                 response.b.alive = false;
+                
             } else {
                 me.state.change(me.state.MENU);
             }
         }else if(response.b.type === "mushroom") {
             this.big = true;            
             me.game.world.removeChild(response.b);
+            
         }
     }
 });
