@@ -13,9 +13,10 @@ game.PlayerEntity = me.Entity.extend({
             }]);
 
         this.renderable.addAnimation("idle", [143]);
-        this.renderable.addAnimation("bigIdle", [41]);
+        this.renderable.addAnimation("bigIdle", [185]);
         this.renderable.addAnimation("smallWalk", [143, 144, 145, 146, 147, 148, 149, 150, 151], 80);
-        this.renderable.addAnimation("bigWalk", [41, 42, 43, 44, 45, 46, 47], 80);
+        this.renderable.addAnimation("bigWalk", [185 ,186 ,187 ,188 ,189 ,190 ,191], 80);
+        this.renderable.addAnimation("grow", [], 80);
 
         
         this.renderable.setCurrentAnimation("idle");
@@ -40,7 +41,7 @@ game.PlayerEntity = me.Entity.extend({
             // update the entity velocity
             this.body.vel.x += this.body.accel.x * me.timer.tick;
             // change to the walking animation
-            if (!this.renderable.isCurrentAnimation("smallWalk")) {
+            if (!this.renderable.isCurrentAnimation("smallWalk") && !this.renderable.isCurrentAnimation("grow") && !this.renderable.isCurrentAnimation("shrink")) {
                 this.renderable.setCurrentAnimation("smallWalk");
             }
         } else {
@@ -75,7 +76,7 @@ game.PlayerEntity = me.Entity.extend({
             }
         } else {
             if (this.body.vel.x !== 0) {
-                if (!this.renderable.isCurrentAnimation("bigWalk")) {
+                if (!this.renderable.isCurrentAnimation("bigWalk") && !this.renderable.isCurrentAnimation("grow") && !this.renderable.isCurrentAnimation("shrink")) {
                     this.renderable.setCurrentAnimation("bigWalk");
                     this.renderable.setAnimationFrame();
                 }
@@ -90,15 +91,24 @@ game.PlayerEntity = me.Entity.extend({
     },
     collideHandler: function(response) {
         var ydif = this.pos.y - response.b.pos.y;
-        console.log = (ydif);
+        console.log(ydif);
+        
         if (response.b.type === "badguy") {
             if (ydif <= -115) {
                 response.b.alive = false;
                 
             } else {
+                    if(this.big){
+                        this.big = false;
+                        this.body.vel.y = this.body.accel.y * me.timer.tick;
+                        this.jumping = true;
+                        this.renderable.setCurrentAnimation("shrink", "idle");
+                    }else{
                 me.state.change(me.state.MENU);
             }
+        }
         }else if(response.b.type === "mushroom") {
+            this.renderable.setCurrentAnimation("grow", "bigIdle");
             this.big = true;            
             me.game.world.removeChild(response.b);
             
@@ -126,12 +136,12 @@ game.BadGuy = me.Entity.extend({
     init: function(x, y, settings) {
         this._super(me.Entity, "init", [x, y, {
                 image: "slime",
-                spritewidth: "60",
-                spriteheight: "28",
-                width: 60,
-                height: 28,
+                spritewidth: "64",
+                spriteheight: "64",
+                width: 64,
+                height: 64,
                 getShape: function() {
-                    return (new me.Rect(0, 0, 60, 28)).toPolygon();
+                    return (new me.Rect(0, 0, 64, 64)).toPolygon();
                 }
             }]);
 
@@ -151,7 +161,7 @@ game.BadGuy = me.Entity.extend({
         this.alive = true;
         this.type = "badguy";
 
-        this.renderable.addAnimation("run", [0, 1, 2], 80);
+        this.renderable.addAnimation("run", [119, 120, 121, 123, 124, 125, 126, 127, 128, 119], 80);
         this.renderable.setCurrentAnimation("run");
 
         this.body.setVelocity(4, 6);

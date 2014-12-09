@@ -44,8 +44,15 @@
   </data>
  </layer>
  <objectgroup name="EnemyEntities">
-  <object name="BadGuy" x="701.048" y="486.696" width="279.007" height="73.1201" rotation="0.0997435"/>
-  <object name="BadGuy" x="470" y="486" width="299" height="71"/>
+  <object name="BadGuy" x="654.048" y="484.696" width="279.007" height="73.1201" rotation="0.0997435"/>
+  <object name="BadGuy" x="512" y="485" width="299" height="71"/>
+ </objectgroup>
+ <objectgroup name="trigger-entities">
+  <object name="levelTrigger" x="1034" y="41" width="69" height="139">
+   <properties>
+    <property name="level" value="JesseLevel11"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="trigger-entities">
   <object name="levelTrigger" x="981" y="421" width="68" height="139">
@@ -57,7 +64,7 @@
   </object>
  </objectgroup>
  <objectgroup name="CollectibleEntities">
-  <object name="Mushroom" x="205" y="486" width="72" height="75"/>
+  <object name="Mushroom" x="698" y="486" width="72" height="75"/>
  </objectgroup>
  <layer name="foreground" width="16" height="9">
   <properties>
