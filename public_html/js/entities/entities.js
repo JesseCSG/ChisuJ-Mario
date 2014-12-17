@@ -16,7 +16,6 @@ game.PlayerEntity = me.Entity.extend({
         this.renderable.addAnimation("bigIdle", [185]);
         this.renderable.addAnimation("smallWalk", [143, 144, 145, 146, 147, 148, 149, 150, 151], 80);
         this.renderable.addAnimation("bigWalk", [185 ,186 ,187 ,188 ,189 ,190 ,191], 80);
-        this.renderable.addAnimation("grow", [], 80);
 
         
         this.renderable.setCurrentAnimation("idle");
@@ -94,7 +93,7 @@ game.PlayerEntity = me.Entity.extend({
         console.log(ydif);
         
         if (response.b.type === "badguy") {
-            if (ydif <= -115) {
+            if (ydif <= -51) {
                 response.b.alive = false;
                 
             } else {
@@ -161,7 +160,66 @@ game.BadGuy = me.Entity.extend({
         this.alive = true;
         this.type = "badguy";
 
-        this.renderable.addAnimation("run", [119, 120, 121, 123, 124, 125, 126, 127, 128, 119], 80);
+        this.renderable.addAnimation("run", [119, 120, 121, 123, 124, 125, 126, 127, 128, 119], 60);
+        this.renderable.setCurrentAnimation("run");
+
+        this.body.setVelocity(4, 6);
+    },
+    update: function(delta) {
+        this.body.update(delta);
+        me.collision.check(this, true, this.collideHandeler.bind(this), true);
+
+        if (this.alive) {
+            if (this.walkLeft && this.pos.x <= this.startX) {
+                this.walkLeft = false;
+            } else if (!this.walkLeft && this.pos.x >= this.endX) {
+                this.walkLeft = true;
+            }
+            this.flipX(!this.walkLeft);
+            this.body.vel.x += (this.walkLeft) ? -this.body.accel.x * me.timer.tick : this.body.accel.x * me.timer.tick;
+        } else {
+            me.game.world.removeChild(this);
+        }
+
+
+        this._super(me.Entity, "update", [delta]);
+        this.return;
+    },
+    collideHandeler: function() {
+
+    }
+});
+
+game.BadGuy2 = me.Entity.extend({
+    init: function(x, y, settings) {
+        this._super(me.Entity, "init", [x, y, {
+                image: "slime2",
+                spritewidth: "64",
+                spriteheight: "64",
+                width: 64,
+                height: 64,
+                getShape: function() {
+                    return (new me.Rect(0, 0, 64, 64)).toPolygon();
+                }
+            }]);
+
+        this.spritewidth = 60;
+        var width = settings.width;
+        x = this.pos.x;
+        this.startX = x;
+
+        this.endX = x + width - this.spritewidth;
+
+        this.pos.x = x + width - this.spritewidth;
+        this.updateBounds();
+
+        this.alwaysUpdate = true;
+
+        this.walkLeft = false;
+        this.alive = true;
+        this.type = "badguy";
+
+        this.renderable.addAnimation("run", [119, 120, 121, 123, 124, 125, 126, 127, 128, 119], 80 );
         this.renderable.setCurrentAnimation("run");
 
         this.body.setVelocity(4, 6);

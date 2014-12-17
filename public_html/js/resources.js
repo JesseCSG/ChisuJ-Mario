@@ -9,6 +9,7 @@ game.resources = [
         {name: "mario", type:"image", src: "data/img/player1.png"},
         {name: "title-srceen", type:"image", src: "data/img/title-srceen.png"},
         {name: "slime", type:"image", src: "data/img/slime-spreadsheet.png"},
+        {name: "slime2", type:"image", src: "data/img/slime-spreadsheet2.png"},
         {name: "mushroom", type:"image", src: "data/img/mushroom.png"},
 
 	/* Atlases 
@@ -29,7 +30,7 @@ game.resources = [
 
 	/* Background music. 
 	 * @example
-	 * {name: "example_bgm", type: "audio", src: "data/bgm/"},
+	 * {name: "example_bgm", type: "audio", src: "data/bgm/"},\
 	 */	
 
 	/* Sound effects. 

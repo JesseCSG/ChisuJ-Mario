@@ -15,7 +15,7 @@ game.TitleScreen = me.ScreenObject.extend({
                     },
                     
                     draw: function(renderer) {
-                        this.font.draw(renderer.getContext(), "Mario-Text", 540, 130);
+                        this.font.draw(renderer.getContext(), "Mario-Kind Of...", 540, 130);
                         this.font.draw(renderer.getContext(), "Press ENTER To Play", 250, 530);
                     }
                 })));
